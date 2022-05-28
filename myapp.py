@@ -16,7 +16,7 @@ clf = pickle.load(open(filename, 'rb'))
 vectorizer = pickle.load(open('tranform.pkl','rb'))
 
 #loading our dataset and some important files to get our recommendations
-small_data1=pd.read_csv('final_movies_data.csv')
+small_data1=pd.read_csv('movie_data.csv')
 count = CountVectorizer(analyzer='word',ngram_range=(1, 2),min_df=0, stop_words='english')
 count_matrix = count.fit_transform(small_data1['combination'])
 small_data1 = small_data1.reset_index()
@@ -70,7 +70,7 @@ def convert_to_list_num(my_list):
     return my_list
 
 def get_suggestions():
-    data = pd.read_csv('final_movies_data.csv')
+    data = pd.read_csv('movie_data.csv')
     return list(data['title'].str.capitalize())
 
 app = Flask(__name__)
