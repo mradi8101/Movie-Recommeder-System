@@ -33,23 +33,17 @@ def get_recommendations1(title):
         sim_scores = sorted(sim_scores, key=lambda x: x[1], reverse=True)
     except:
         sim_scores = sorted(sim_scores, key=lambda x: x[1][1], reverse=True)  
-    sim_scores = sim_scores[1:11]
+    sim_scores = sim_scores[1:6]
     movie_indices = [i[0] for i in sim_scores]
     tit = small_data1['title'].iloc[movie_indices]
     dat = small_data1['release_date'].iloc[movie_indices]
     rating = small_data1['vote_average'].iloc[movie_indices]
-    moviedetails=small_data1['overview'].iloc[movie_indices]
-    movietypes=small_data1['keywords'].iloc[movie_indices]
-    movieid=small_data1['id'].iloc[movie_indices]
     org_title=small_data1['original_title'].iloc[movie_indices]
     poster=small_data1['poster'].iloc[movie_indices]
     return_df = pd.DataFrame(columns=['Title','Year'])
     return_df['Title'] = tit
     return_df['Year'] = dat
     return_df['Ratings'] = rating
-    return_df['Overview']=moviedetails
-    return_df['Types']=movietypes
-    return_df['ID']=movieid
     return_df['org_title']=org_title
     return_df['poster'] =poster
     sorted_df = return_df.sort_values(by=['Ratings'], ascending=False)
@@ -177,4 +171,4 @@ def recommend():
         vote_count=vote_count,release_date=release_date,movie_rel_date=movie_rel_date,curr_date=curr_date,runtime=runtime,status=status,genres=genres,movie_cards=movie_cards,reviews=movie_reviews,casts=casts,cast_details=cast_details)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0',port=8080)
